@@ -30,6 +30,13 @@ exports = Class(GC.Application, function () {
 				return v.style.width;
 			}
 		});
+
+		parallaxView.scrollTo(0,0);
+		var x = 0;
+		GC.app.engine.on('Tick', function (dt) {
+			x += 2;
+			brushLayer.scrollTo(x, 0);
+		});
 	};
 
 	this.launchUI = function () {};
