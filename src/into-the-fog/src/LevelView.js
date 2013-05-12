@@ -24,7 +24,7 @@ exports = Class(ui.View, function (supr) {
         });
         parallaxView.addBackgroundView(new ImageScaleView({
             scaleMethod: 'cover',
-            image: "resources/images/level/backgroundSky.png",
+            image: "resources/images/level/backgroundSky.png"
         }));
         var brushLayer = parallaxView.addLayer({
             distance: 20,
@@ -36,11 +36,21 @@ exports = Class(ui.View, function (supr) {
                     y: layer.style.height - 250,
                     opacity: 0.5,
                     width: 1024,
-                    height: 212,
+                    height: 212
                 });
                 return v.style.width;
             }
         });
+
+        var switchClick = new ui.View({
+            superview:this,
+            width: this.style.width,
+            height: this.style.height
+        });
+
+        switchClick.on('InputSelect', bind(this, function () {
+            this.emit('levelview:switch');
+        }));
 
         parallaxView.scrollTo(0,0);
         var x = 0;
