@@ -3,35 +3,36 @@ import ui.StackView as StackView;
 import ui.TextView as TextView;
 import ui.ImageScaleView as ImageScaleView;
 import src.lib.platformer.ParallaxView as ParallaxView;
-import src.LevelView as LevelView;
+import src.RealWorldView as RealWorldView;
+import src.ShadowWorldView as ShadowWorldView;
 
 exports = Class(GC.Application, function () {
 
 	this.initUI = function () {
-		var levelview = new LevelView({
+		var realworld = new RealWorldView({
 			width: this.view.style.width,
 			height: this.view.style.height
 		});
 
-		var altView = new ImageScaleView({
-			scaleMethod: 'cover',
-			image: "resources/images/level/midgroundTree1.png"
-		});
-
-		altView.on('InputSelect', bind(this, function () {
-			rootView.push(levelview);
-		}));
+		var shadowworld = new ShadowWorldView({
+			width: this.view.style.width,
+			height: this.view.style.height
+		})
 
 		var rootView = new StackView({
 			superview: this,
 			width: this.view.style.width,
 			height: this.view.style.height
 		});
-		rootView.push(levelview);
+		rootView.push(realworld);
 
-		levelview.on('levelview:switch', function () {
-			rootView.push(altView);
+		realworld.on('realworld:switch', function () {
+			rootView.push(shadowworld);
 		});
+
+		shadowworld.on('shadowworld:switch', function () {
+			rootView.push(realworld);
+		})
 	};
 
 	this.launchUI = function () {};

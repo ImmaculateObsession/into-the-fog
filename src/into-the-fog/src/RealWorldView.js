@@ -49,7 +49,7 @@ exports = Class(ui.View, function (supr) {
         });
 
         switchClick.on('InputSelect', bind(this, function () {
-            this.emit('levelview:switch');
+            this.emit('realworld:switch');
         }));
 
         parallaxView.scrollTo(0,0);
