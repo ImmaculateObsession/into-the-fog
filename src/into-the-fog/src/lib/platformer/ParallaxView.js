@@ -197,9 +197,13 @@ ParallaxView.Layer = Class(ui.View, function (supr) {
 		this._opts = opts = merge(opts, defaults);
 		supr(this, 'init', arguments);
 		this._distance = opts.distance || 1;
+		this._scrollVertical = opts.scrollVertical || false;
 		this._pools = {};		
 		this._populatedX = -this.style.x;
+		this._populatedY = -this.style.y;
 		this.setHandleEvents(false, false);
+		console.log('here I am');
+		console.log(this._scrollVertical);
 	}
 	
 	//****************************************************************
@@ -247,6 +251,7 @@ ParallaxView.Layer = Class(ui.View, function (supr) {
 			subviews.pop().removeFromSuperview();
 		}
 		this._populatedX = -this.style.x;
+		this._populatedY = -this.style.y;
 		this._populate();
 	}
 
@@ -322,8 +327,13 @@ ParallaxView.Layer = Class(ui.View, function (supr) {
 	this._scrollTo = function (x, y) {
 		this.style.x = -x|0;
 		this.style.y = -y|0;
-	
-		this._populate();
+		
+		if (this.scrollVertical == true) {
+			this._populateVertical();
+			console.log('Scroll Vertical baby!');
+		} else {
+			this._populate();
+		}
 	}
 	
 	this._populate = function () {
@@ -342,6 +352,28 @@ ParallaxView.Layer = Class(ui.View, function (supr) {
 		     len = children.length; i < len; i++) {
 			var v = children[i];
 			if (v.style.x + v.style.width < -this.style.x) {
+				v.removeFromSuperview();
+			}
+		}
+	}
+
+	this._populateVertical = function() {
+		var start = this._populatedY;
+		var end = -this.style.y + this.getSuperview().style.height;
+		while (start < end) {
+			var height = this.populate(start);
+			if (!height || isNaN(height)) {
+				break;
+			}
+			start += height;
+		}
+
+		this._populatedY = Math.max(start, end);
+
+		for (var i = 0, children = this.getSubviews(),
+			len = children.length; i < len; i++) {
+			var v = children[i];
+			if (v.style.y + v.style.height < -this.style.y) {
 				v.removeFromSuperview();
 			}
 		}

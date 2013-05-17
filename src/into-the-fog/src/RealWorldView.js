@@ -26,7 +26,7 @@ exports = Class(ui.View, function (supr) {
             scaleMethod: 'cover',
             image: "resources/images/level/backgroundSky.png"
         }));
-        var brushLayer = parallaxView.addLayer({
+        var buildingLayer = parallaxView.addLayer({
             distance: 20,
             populate: function (layer, x) {
                 var v = layer.obtainView(ImageView, {
@@ -56,7 +56,7 @@ exports = Class(ui.View, function (supr) {
         var x = 0;
         GC.app.engine.on('Tick', function (dt) {
             x += 2;
-            brushLayer.scrollTo(x, 0);
+            buildingLayer.scrollTo(x, 0);
         });
     };
 });

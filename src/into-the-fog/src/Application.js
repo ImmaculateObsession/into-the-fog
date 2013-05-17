@@ -28,6 +28,7 @@ exports = Class(GC.Application, function () {
 
 		realworld.on('realworld:switch', function () {
 			rootView.push(shadowworld);
+			// shadowworld.startAnimation();
 		});
 
 		shadowworld.on('shadowworld:switch', function () {
