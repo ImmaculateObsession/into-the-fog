@@ -24,14 +24,31 @@ exports = Class(View, function (supr) {
         parallaxView.addBackgroundView(new View({
             color: '#000000'
         }));
-        var treeLayer = parallaxView.addLayer({
+        var leftTreeLayer = parallaxView.addLayer({
             distance: 20,
             scrollVertical: true,
-            populate: function (layer, y) {
+            populate: function (layer, y, x) {
                 var v = layer.obtainView(ImageView, {
                     superview: layer,
                     image: "resources/images/level/midgroundTree3.png",
                     x: 0,
+                    y: y,
+                    opacity: 1,
+                    width: 100,
+                    height: 100
+                });
+                return v.style.width;
+            }
+        });
+
+        var rightTreeLayer = parallaxView.addLayer({
+            distance: 20,
+            scrollVertical: true,
+            populate: function (layer, y, x) {
+                var v = layer.obtainView(ImageView, {
+                    superview: layer,
+                    image: "resources/images/level/midgroundTree3.png",
+                    x: this._superview._superview.style.width-100,
                     y: y,
                     opacity: 1,
                     width: 100,
@@ -54,8 +71,9 @@ exports = Class(View, function (supr) {
         parallaxView.scrollTo(0,0);
         var y = 0;
         GC.app.engine.on('Tick', function (dt) {
-            y += 2;
-            treeLayer.scrollTo(0, y);
+            y += 20;
+            parallaxView.scrollTo(0, y);
+            // rightTreeLayer.scrollTo(500, y);
         });
 
         // this.backgroundView = new View({

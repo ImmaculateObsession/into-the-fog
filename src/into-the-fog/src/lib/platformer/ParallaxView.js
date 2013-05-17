@@ -202,8 +202,6 @@ ParallaxView.Layer = Class(ui.View, function (supr) {
 		this._populatedX = -this.style.x;
 		this._populatedY = -this.style.y;
 		this.setHandleEvents(false, false);
-		console.log('here I am');
-		console.log(this._scrollVertical);
 	}
 	
 	//****************************************************************
@@ -327,10 +325,8 @@ ParallaxView.Layer = Class(ui.View, function (supr) {
 	this._scrollTo = function (x, y) {
 		this.style.x = -x|0;
 		this.style.y = -y|0;
-		
-		if (this.scrollVertical == true) {
+		if (this._scrollVertical == true) {
 			this._populateVertical();
-			console.log('Scroll Vertical baby!');
 		} else {
 			this._populate();
 		}
