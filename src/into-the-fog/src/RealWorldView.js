@@ -2,6 +2,7 @@ import ui.View;
 import ui.ImageView as ImageView;
 import ui.ImageScaleView as ImageScaleView;
 import src.lib.platformer.ParallaxView as ParallaxView;
+import src.lib.platformer.util as util
 
 
 exports = Class(ui.View, function (supr) {
@@ -26,13 +27,13 @@ exports = Class(ui.View, function (supr) {
             scaleMethod: 'cover',
             image: "resources/images/level/backgroundSky.png"
         }));
-        var brushLayer = parallaxView.addLayer({
+        var buildingLayer = parallaxView.addLayer({
             distance: 20,
             populate: function (layer, x) {
                 var v = layer.obtainView(ImageView, {
                     superview: layer,
-                    image: "resources/images/city_building1.png",
-                    x: x,
+                    image: "resources/images/city_building" + util.randInt(1, 3) + ".png",
+                    x: x-2,
                     y: 0,
                     opacity: 1,
                     width: 256,
@@ -49,14 +50,14 @@ exports = Class(ui.View, function (supr) {
         });
 
         switchClick.on('InputSelect', bind(this, function () {
-            this.emit('levelview:switch');
+            this.emit('realworld:switch');
         }));
 
         parallaxView.scrollTo(0,0);
         var x = 0;
         GC.app.engine.on('Tick', function (dt) {
             x += 2;
-            brushLayer.scrollTo(x, 0);
+            buildingLayer.scrollTo(x, 0);
         });
     };
 });
