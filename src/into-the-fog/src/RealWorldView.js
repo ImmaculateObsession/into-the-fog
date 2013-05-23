@@ -2,6 +2,7 @@ import ui.View;
 import ui.ImageView as ImageView;
 import ui.ImageScaleView as ImageScaleView;
 import src.lib.platformer.ParallaxView as ParallaxView;
+import src.lib.platformer.util as util
 
 
 exports = Class(ui.View, function (supr) {
@@ -31,8 +32,8 @@ exports = Class(ui.View, function (supr) {
             populate: function (layer, x) {
                 var v = layer.obtainView(ImageView, {
                     superview: layer,
-                    image: "resources/images/city_building1.png",
-                    x: x,
+                    image: "resources/images/city_building" + util.randInt(1, 3) + ".png",
+                    x: x-2,
                     y: 0,
                     opacity: 1,
                     width: 256,
