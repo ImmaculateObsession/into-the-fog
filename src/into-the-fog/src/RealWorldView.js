@@ -23,10 +23,29 @@ exports = Class(ui.View, function (supr) {
             width: this.style.width,
             height: this.style.height
         });
+
         parallaxView.addBackgroundView(new ImageScaleView({
             scaleMethod: 'cover',
             image: "resources/images/level/backgroundSky.png"
         }));
+
+        // order matters here. roadlayer THEN buildinglayer
+        var roadLayer = parallaxView.addLayer({
+            distance:20,
+            populate: function (layer, x) {
+                var v = layer.obtainView(ImageView, {
+                    superview: layer,
+                    image: "resources/images/city_road.png",
+                    x: x,
+                    y: 0,
+                    opacity: 1,
+                    width: 256,
+                    height: 320
+                });
+                return v.style.width;
+            }
+        });
+
         var buildingLayer = parallaxView.addLayer({
             distance: 20,
             populate: function (layer, x) {
@@ -56,7 +75,7 @@ exports = Class(ui.View, function (supr) {
         parallaxView.scrollTo(0,0);
         var x = 0;
         GC.app.engine.on('Tick', function (dt) {
-            x += 2;
+            x += 3;
             buildingLayer.scrollTo(x, 0);
         });
     };

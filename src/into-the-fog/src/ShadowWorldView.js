@@ -45,7 +45,7 @@ exports = Class(View, function (supr) {
             distance: 20,
             scrollVertical: true,
             populate: function (layer, y, x) {
-                var v = layer.obtainView(ImageView, { 
+                var v = layer.obtainView(ImageView, {
                     superview: layer,
                     image: "resources/images/level/midgroundTree3.png",
                     x: this._superview._superview.style.width-100,
