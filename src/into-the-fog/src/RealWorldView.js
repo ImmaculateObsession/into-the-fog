@@ -147,10 +147,42 @@ exports = Class(ui.View, function (supr) {
 
         quail.startAnimation('right', {loop:true});
 
-        var switchClick = new ui.View({
-            superview:this,
+        var dragView = new ui.View({
+            superview: this,
             width: this.style.width,
             height: this.style.height
+        });
+
+        dragView.on('InputSelect', bind(quail, function(evt) {
+            quail.startDrag({
+                inputStartEvt: evt,
+                radius: 10
+            });
+        }));
+
+        quail.on('DragStart', function (dragEvt) {
+            quail.dragOffset = {
+                x: dragEvt.srcPt.x - quail.style.x,
+                y: dragEvt.srcPt.y - quail.style.y
+            };
+        });
+
+        // Let the player drag the character up and down.
+        quail.on('Drag', function (startEvt, dragEvt, delta) {
+            quail.style.y = dragEvt.srcPt.y - quail.dragOffset.y;
+        });
+
+        quail.on('DragStop', function (startEvt, dragEvt) {
+            quail.style.y = dragEvt.srcPt.y - quail.dragOffset.y;
+        });
+
+        var switchClick = new ui.View({
+            superview:this,
+            x: this.style.width - 60,
+            y: this.style.height - 60,
+            width: 50,
+            height: 50,
+            backgroundColor: "#0ef000"
         });
 
         switchClick.on('InputSelect', bind(this, function () {
