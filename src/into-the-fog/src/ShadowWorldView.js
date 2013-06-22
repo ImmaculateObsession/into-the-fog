@@ -1,5 +1,6 @@
 import ui.View as View;
 import ui.ImageView as ImageView;
+import ui.SpriteView as SpriteView;
 import src.lib.platformer.ParallaxView as ParallaxView;
 
 exports = Class(View, function (supr) {
@@ -23,39 +24,77 @@ exports = Class(View, function (supr) {
         parallaxView.addBackgroundView(new View({
             color: '#000000'
         }));
-        var leftTreeLayer = parallaxView.addLayer({
-            distance: 20,
+
+        var roadLayer = parallaxView.addLayer({
+            distance:20,
             scrollVertical: true,
             populate: function (layer, y, x) {
                 var v = layer.obtainView(ImageView, {
                     superview: layer,
-                    image: "resources/images/level/midgroundTree3.png",
+                    image: 'resources/images/shadow_road.png',
                     x: 0,
                     y: y,
                     opacity: 1,
-                    width: 100,
-                    height: 100
+                    width: 512,
+                    height: 320
                 });
-                return v.style.width;
+                return v.style.height - 4;
             }
         });
 
-        var rightTreeLayer = parallaxView.addLayer({
+        var rightBuildingLayer = parallaxView.addLayer({
             distance: 20,
             scrollVertical: true,
             populate: function (layer, y, x) {
                 var v = layer.obtainView(ImageView, {
                     superview: layer,
-                    image: "resources/images/level/midgroundTree3.png",
-                    x: this._superview._superview.style.width-100,
+                    image: "resources/images/shadow_building1_right.png",
+                    x: -10,
                     y: y,
                     opacity: 1,
-                    width: 100,
-                    height: 100
+                    width: 120,
+                    height: 250
                 });
-                return v.style.width;
+                return v.style.height - 50;
             }
         });
+
+        var leftBuildingLayer = parallaxView.addLayer({
+            distance: 20,
+            scrollVertical: true,
+            populate: function (layer, y, x) {
+                var v = layer.obtainView(ImageView, {
+                    superview: layer,
+                    image: "resources/images/shadow_building1_left.png",
+                    x: this._superview._superview.style.width-110,
+                    y: y,
+                    opacity: 1,
+                    width: 120,
+                    height: 250
+                });
+                return v.style.height - 50;
+            }
+        });
+
+        var quail = new SpriteView({
+            superview: this,
+            sheetData: {
+                url: "resources/images/characters/quail.png",
+                anims: {
+                    up:     [ [0,0], [1,0], [2,0], [3,0], [4,0], [5,0], [6,0], [7,0] ],
+                    down:   [ [0,1], [1,1], [2,1], [3,1], [4,1], [5,1], [6,1], [7,1] ],
+                    left:   [ [0,2], [1,2], [2,2], [3,2], [4,2], [5,2], [6,2], [7,2] ],
+                    right:  [ [0,3], [1,3], [2,3], [3,3], [4,3], [5,3], [6,3], [7,3] ]
+                }
+            },
+            width: 64,
+            height: 64,
+            x: this.style.width/2 - 32,
+            y: this.style.height/2 - 32,
+            framerate: 2
+        });
+
+        quail.startAnimation('down', {loop:true});
 
         var switchClick = new View({
             superview:this,
