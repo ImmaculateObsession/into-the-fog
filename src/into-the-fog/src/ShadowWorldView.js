@@ -1,4 +1,3 @@
-import animate;
 import ui.View as View;
 import ui.ImageView as ImageView;
 import src.lib.platformer.ParallaxView as ParallaxView;
@@ -73,33 +72,6 @@ exports = Class(View, function (supr) {
         GC.app.engine.on('Tick', function (dt) {
             y += 20;
             parallaxView.scrollTo(0, y);
-            // rightTreeLayer.scrollTo(500, y);
         });
-
-        // this.backgroundView = new View({
-        //     superview: this,
-        //     width: this.style.width,
-        //     height: this.style.height,
-        //     backgroundColor: '#000000'
-        // });
-
-        // this.backgroundView.on('InputSelect', bind(this, function () {
-        //     this.emit('shadowworld:switch');
-        // }));
-
-        // this.leftTreeView = new ImageView({
-        //     superview: this,
-        //     width:100,
-        //     height: 100,
-        //     image: 'resources/images/level/midgroundTree3.png',
-        //     x: 0,
-        //     y: this.style.height
-        // });
-
-
     };
-
-    // this.startAnimation = function () {
-    //     animate(this.leftTreeView).now({y: -100}, 1500);
-    // };
 });
