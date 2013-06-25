@@ -1,4 +1,5 @@
 import ui.View as View;
+import ui.SpriteView as SpriteView;
 import ui.ImageScaleView as ImageScaleView;
 
 exports = Class(View, function (supr) {
@@ -14,20 +15,24 @@ exports = Class(View, function (supr) {
     };
 
     this.build = function() {
-        var transition = new ImageScaleView({
+        this.transition = new ImageScaleView({
             superview: this,
             scaleMethod: 'cover',
             image: 'resources/images/level/midgroundTree1.png'
         });
 
-        var transistionClickView = new View({
+        this.transistionClickView = new View({
             superview: this,
             width: this.style.width,
             height: this.style.height
         });
 
-        transistionClickView.on('InputSelect', bind(this, function() {
-            this.emit('transition:switch');
+        // var quailSpin = new SpriteView({
+        //     superView: this,
+        // })
+
+        this.transistionClickView.on('InputSelect', bind(this, function() {
+            this.emit('realtoshadow:switch');
         }));
     };
 });

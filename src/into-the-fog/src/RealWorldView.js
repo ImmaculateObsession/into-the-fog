@@ -19,19 +19,19 @@ exports = Class(ui.View, function (supr) {
     };
 
     this.build = function() {
-        var parallaxView = new ParallaxView({
+        this.parallaxView = new ParallaxView({
             superview: this,
             width: this.style.width,
             height: this.style.height
         });
 
-        parallaxView.addBackgroundView(new ImageScaleView({
+        this.parallaxView.addBackgroundView(new ImageScaleView({
             scaleMethod: 'cover',
             image: "resources/images/level/backgroundSky.png"
         }));
 
         // order matters here. roadlayer THEN buildinglayer
-        var roadLayer = parallaxView.addLayer({
+        var roadLayer = this.parallaxView.addLayer({
             distance:20,
             populate: function (layer, x) {
                 var v = layer.obtainView(ImageView, {
@@ -47,7 +47,7 @@ exports = Class(ui.View, function (supr) {
             }
         });
 
-        var buildingLayer = parallaxView.addLayer({
+        var buildingLayer = this.parallaxView.addLayer({
             distance: 20,
             populate: function (layer, x) {
                 var v = layer.obtainView(ImageView, {
@@ -63,7 +63,7 @@ exports = Class(ui.View, function (supr) {
             }
         });
 
-        var treeLayer = parallaxView.addLayer({
+        var treeLayer = this.parallaxView.addLayer({
             distance: 20,
             populate: function (layer, x) {
                 var v = layer.obtainView(ImageView, {
@@ -79,7 +79,7 @@ exports = Class(ui.View, function (supr) {
             }
         });
 
-        var trashcanLayer = parallaxView.addLayer({
+        var trashcanLayer = this.parallaxView.addLayer({
             distance: 20,
             populate: function (layer, x) {
                 var v = layer.obtainView(ImageView, {
@@ -95,7 +95,7 @@ exports = Class(ui.View, function (supr) {
             }
         });
 
-        var hydrantLayer = parallaxView.addLayer({
+        var hydrantLayer = this.parallaxView.addLayer({
             distance: 20,
             populate: function (layer, x) {
                 var v = layer.obtainView(ImageView, {
@@ -111,7 +111,7 @@ exports = Class(ui.View, function (supr) {
             }
         });
 
-        var meterLayer = parallaxView.addLayer({
+        var meterLayer = this.parallaxView.addLayer({
             distance: 20,
             populate: function (layer, x) {
                 var v = layer.obtainView(ImageView, {
@@ -188,12 +188,12 @@ exports = Class(ui.View, function (supr) {
         switchClick.on('InputSelect', bind(this, function () {
             this.emit('realworld:switch');
         }));
-
-        parallaxView.scrollTo(0,0);
+        var para = this.parallaxView
+        para.scrollTo(0,0);
         var x = 0;
         GC.app.engine.on('Tick', function (dt) {
             x += 30;
-            parallaxView.scrollTo(x, 0);
+            para.scrollTo(x, 0);
         });
     };
 });
