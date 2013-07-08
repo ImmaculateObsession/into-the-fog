@@ -76,25 +76,37 @@ exports = Class(View, function (supr) {
             }
         });
 
-        var quail = new SpriteView({
+        // var quail = new SpriteView({
+        //     superview: this,
+        //     sheetData: {
+        //         url: "resources/images/characters/quail.png",
+        //         anims: {
+        //             up:     [ [0,0], [1,0], [2,0], [3,0], [4,0], [5,0], [6,0], [7,0] ],
+        //             down:   [ [0,1], [1,1], [2,1], [3,1], [4,1], [5,1], [6,1], [7,1] ],
+        //             left:   [ [0,2], [1,2], [2,2], [3,2], [4,2], [5,2], [6,2], [7,2] ],
+        //             right:  [ [0,3], [1,3], [2,3], [3,3], [4,3], [5,3], [6,3], [7,3] ]
+        //         }
+        //     },
+        //     width: 64,
+        //     height: 64,
+        //     x: this.style.width/2 - 32,
+        //     y: this.style.height/2 - 32,
+        //     framerate: 2
+        // });
+
+        // quail.startAnimation('down', {loop:true});
+
+        var biker = new SpriteView({
             superview: this,
-            sheetData: {
-                url: "resources/images/characters/quail.png",
-                anims: {
-                    up:     [ [0,0], [1,0], [2,0], [3,0], [4,0], [5,0], [6,0], [7,0] ],
-                    down:   [ [0,1], [1,1], [2,1], [3,1], [4,1], [5,1], [6,1], [7,1] ],
-                    left:   [ [0,2], [1,2], [2,2], [3,2], [4,2], [5,2], [6,2], [7,2] ],
-                    right:  [ [0,3], [1,3], [2,3], [3,3], [4,3], [5,3], [6,3], [7,3] ]
-                }
-            },
-            width: 64,
-            height: 64,
-            x: this.style.width/2 - 32,
-            y: this.style.height/2 - 32,
-            framerate: 2
+            x: this.style.width/4 + 80,
+            y: 120,
+            width: 100,
+            height: 100,
+            url: 'resources/images/characters/bike',
+            framerate: 15
         });
 
-        quail.startAnimation('down', {loop:true});
+        biker.startAnimation('front', {loop: true});
 
         var switchClick = new View({
             superview:this,
@@ -109,7 +121,7 @@ exports = Class(View, function (supr) {
         parallaxView.scrollTo(0,0);
         var y = 0;
         GC.app.engine.on('Tick', function (dt) {
-            y += 20;
+            y += 100;
             parallaxView.scrollTo(0, y);
         });
     };

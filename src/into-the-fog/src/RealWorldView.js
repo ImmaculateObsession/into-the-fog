@@ -127,54 +127,66 @@ exports = Class(ui.View, function (supr) {
             }
         });
 
-        var quail = new SpriteView({
+        // var quail = new SpriteView({
+        //     superview: this,
+        //     sheetData: {
+        //         url: "resources/images/characters/quail.png",
+        //         anims: {
+        //             up:     [ [0,0], [1,0], [2,0], [3,0], [4,0], [5,0], [6,0], [7,0] ],
+        //             down:   [ [0,1], [1,1], [2,1], [3,1], [4,1], [5,1], [6,1], [7,1] ],
+        //             left:   [ [0,2], [1,2], [2,2], [3,2], [4,2], [5,2], [6,2], [7,2] ],
+        //             right:  [ [0,3], [1,3], [2,3], [3,3], [4,3], [5,3], [6,3], [7,3] ]
+        //         }
+        //     },
+        //     width: 64,
+        //     height: 64,
+        //     x: this.style.width/4,
+        //     y: 180,
+        //     framerate: 2
+        // });
+
+        // quail.startAnimation('right', {loop:true});
+
+        // var dragView = new ui.View({
+        //     superview: this,
+        //     width: this.style.width,
+        //     height: this.style.height
+        // });
+
+        // dragView.on('InputSelect', bind(quail, function(evt) {
+        //     quail.startDrag({
+        //         inputStartEvt: evt,
+        //         radius: 10
+        //     });
+        // }));
+
+        // quail.on('DragStart', function (dragEvt) {
+        //     quail.dragOffset = {
+        //         x: dragEvt.srcPt.x - quail.style.x,
+        //         y: dragEvt.srcPt.y - quail.style.y
+        //     };
+        // });
+
+        // // Let the player drag the character up and down.
+        // quail.on('Drag', function (startEvt, dragEvt, delta) {
+        //     quail.style.y = dragEvt.srcPt.y - quail.dragOffset.y;
+        // });
+
+        // quail.on('DragStop', function (startEvt, dragEvt) {
+        //     quail.style.y = dragEvt.srcPt.y - quail.dragOffset.y;
+        // });
+
+        var biker = new SpriteView({
             superview: this,
-            sheetData: {
-                url: "resources/images/characters/quail.png",
-                anims: {
-                    up:     [ [0,0], [1,0], [2,0], [3,0], [4,0], [5,0], [6,0], [7,0] ],
-                    down:   [ [0,1], [1,1], [2,1], [3,1], [4,1], [5,1], [6,1], [7,1] ],
-                    left:   [ [0,2], [1,2], [2,2], [3,2], [4,2], [5,2], [6,2], [7,2] ],
-                    right:  [ [0,3], [1,3], [2,3], [3,3], [4,3], [5,3], [6,3], [7,3] ]
-                }
-            },
-            width: 64,
-            height: 64,
             x: this.style.width/4,
-            y: 180,
-            framerate: 2
+            y: 160,
+            width: 100,
+            height: 100,
+            url: 'resources/images/characters/bike',
+            framerate: 15
         });
 
-        quail.startAnimation('right', {loop:true});
-
-        var dragView = new ui.View({
-            superview: this,
-            width: this.style.width,
-            height: this.style.height
-        });
-
-        dragView.on('InputSelect', bind(quail, function(evt) {
-            quail.startDrag({
-                inputStartEvt: evt,
-                radius: 10
-            });
-        }));
-
-        quail.on('DragStart', function (dragEvt) {
-            quail.dragOffset = {
-                x: dragEvt.srcPt.x - quail.style.x,
-                y: dragEvt.srcPt.y - quail.style.y
-            };
-        });
-
-        // Let the player drag the character up and down.
-        quail.on('Drag', function (startEvt, dragEvt, delta) {
-            quail.style.y = dragEvt.srcPt.y - quail.dragOffset.y;
-        });
-
-        quail.on('DragStop', function (startEvt, dragEvt) {
-            quail.style.y = dragEvt.srcPt.y - quail.dragOffset.y;
-        });
+        biker.startAnimation('side', {loop: true});
 
         var switchClick = new ui.View({
             superview:this,
@@ -192,7 +204,7 @@ exports = Class(ui.View, function (supr) {
         para.scrollTo(0,0);
         var x = 0;
         GC.app.engine.on('Tick', function (dt) {
-            x += 30;
+            x += 100;
             para.scrollTo(x, 0);
         });
     };
